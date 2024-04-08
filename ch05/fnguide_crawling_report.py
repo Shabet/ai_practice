@@ -63,8 +63,7 @@ def find_current_incomming_rate(stock_code):
 def get_current_incomming_rate(soup):
     current_incomming_0 = soup.select('#highlight_D_A > table> tbody > tr:nth-of-type(4) > td:nth-child(4)')
     current_incomming_1 = soup.select('#highlight_D_A > table> tbody > tr:nth-of-type(4) > td:nth-child(5)')
-    current_incomming_rate = (int(current_incomming_1[0].string.replace(",", "")) - int(current_incomming_0[0].string.replace(",", ""))) / int(current_incomming_0[0].string.replace(",", "")) * 100.
-
+    current_incomming_rate = (int(current_incomming_1[0].string.replace(",", "")) - int(current_incomming_0[0].string.replace(",", ""))) / abs(int(current_incomming_0[0].string.replace(",", ""))) * 100.
     return current_incomming_rate
 
 #
