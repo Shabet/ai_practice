@@ -37,6 +37,31 @@ def calc_distance(a, b):
             # print(matrix)
         # print(matrix,'----------끝')
     return matrix[a_len][b_len]
+
+def get_shortest_distance_index(base, samples):
+    shortest_distance = (-1,-1, '') # index, distance, question
+    distances = []
+    for idx, sample in enumerate(samples):
+        distance = calc_distance(base, sample)
+
+        if shortest_distance[0] == -1: #최초 수행시
+            shortest_distance = (idx, distance, sample)
+        elif distance < shortest_distance[1]: #거리가 짧은 것을 저장
+            shortest_distance = (idx, distance, sample)
+        
+        print(idx, calc_distance(base, sample), sample)
+        distances.append(calc_distance(base, sample))
+
+    print("@@@")
+    for key, value in enumerate(distances):
+        print(key, value)
+
+    print("@@@")
+    print(shortest_distance)
+    print("@@@")
+    return shortest_distance[0]
+
+
 # "얼마나 분석이 될까요"와 "유사도나 분석 할까요"의 거리 --- (※3)
 print(calc_distance("얼마나 분석이 될까요","유사도나 분석 할까요"))
 # 실행 예
@@ -45,3 +70,10 @@ base = samples[0]
 r = sorted(samples, key = lambda n: calc_distance(base, n))  # samples 리스트의 각 요소에 대해 calc_distance(base, n) 함수를 호출하여 레벤슈타인 거리를 계산하고, 이를 기준으로 리스트를 정렬
 for n in r:
     print(calc_distance(base, n), n)
+
+shortest_distance_index = get_shortest_distance_index(base, samples[1:])
+print(shortest_distance_index)
+
+
+
+
