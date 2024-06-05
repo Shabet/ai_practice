@@ -1,3 +1,4 @@
+import numpy as np
 import random
 
 # 레벤슈타인 거리 구하기
@@ -10,10 +11,13 @@ def calc_distance(a, b):
     if b == "": return a_len
     # 2차원 표 (a_len+1, b_len+1) 준비하기 --- (※1)
     # matrix 초기화의 예 : [[0, 1, 2, 3], [1, 0, 0, 0, 0], [2, 0, 0, 0, 0], [3, 0, 0, 0, 0], [4, 0, 0, 0, 0]]
-    # [0, 1, 2, 3]
-    # [1, 0, 0, 0]
-    # [2, 0, 0, 0]
-    # [3, 0, 0, 0] 
+    #
+    # ex)
+    #        서 울 시
+    #    [0, 1, 2, 3]
+    # 서 [1, 0, 1, 2]
+    # 울 [2, 1, 0, 1]
+    # 시 [3, 2, 1, 0] 
     matrix = [[] for i in range(a_len+1)] # 리스트 컴프리헨션을 사용하여 1차원 초기화
     for i in range(a_len+1): # 0으로 초기화
         matrix[i] = [0 for j in range(b_len+1)]  # 리스트 컴프리헨션을 사용하여 2차원 초기화
@@ -38,6 +42,7 @@ def calc_distance(a, b):
             ])
             # print(matrix)
         # print(matrix,'----------끝')
+    # print(np.array(matrix))
     return matrix[a_len][b_len]
 
 
@@ -94,7 +99,9 @@ def get_shortest_distance_index_old(input_sentence, questions):
 
 
 # "얼마나 분석이 될까요"와 "유사도나 분석 할까요"의 거리 --- (※3)
-print(calc_distance("얼마나 분석이 될까요","유사도나 분석 할까요"))
+print("Levenshtein_Distance:", calc_distance("얼마나 분석이 될까요","유사도나 분석 할까요"))
+
+
 # 실행 예
 samples = ["신촌역","신천군","신천역","신발","마곡역"]
 base = samples[0]
