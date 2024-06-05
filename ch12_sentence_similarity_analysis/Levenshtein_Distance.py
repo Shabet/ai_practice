@@ -1,3 +1,5 @@
+import random
+
 # 레벤슈타인 거리 구하기
 def calc_distance(a, b):
     ''' 레벤슈타인 거리 계산하기 '''
@@ -38,28 +40,57 @@ def calc_distance(a, b):
         # print(matrix,'----------끝')
     return matrix[a_len][b_len]
 
-def get_shortest_distance_index(base, samples):
-    shortest_distance = (-1,-1, '') # index, distance, question
-    distances = []
-    for idx, sample in enumerate(samples):
-        distance = calc_distance(base, sample)
 
-        if shortest_distance[0] == -1: #최초 수행시
-            shortest_distance = (idx, distance, sample)
-        elif distance < shortest_distance[1]: #거리가 짧은 것을 저장
-            shortest_distance = (idx, distance, sample)
+def get_shortest_distance_index(input_sentence, questions):
+    '''입력된 질문과 미리준비된 질문 리스트를 calc_distance() 함수를 호출하여 레벤슈타인 거리를 계산하고, 이를 기준으로 가장 유사한 질문에 해당하는 인덱스를 리턴'''
+    shortest_distances = [] # (index, distance, question) 튜플 형식으로 저장
+    for idx, question in enumerate(questions):
+        distance = calc_distance(input_sentence, question)
+
+        if not shortest_distances:                 #최초 수행시
+            shortest_distances = [(idx, distance, question)]
+        elif distance < shortest_distances[0][1]:  #거리가 짧은 것을 저장
+            shortest_distances = [(idx, distance, question)]
+        elif distance == shortest_distances[0][1]: #거리가 같을때는 append
+            shortest_distances.append((idx, distance, question))
+
+    # print(shortest_distances) # 테스트시 주석 해제
+
+    # 같은 거리로 계산된 것중에 random하게 인덱스 리턴
+    random_num_idx = random.randint(0,len(shortest_distances)-1)
+    return shortest_distances[random_num_idx][0]
+
+def get_shortest_distance_index_old(input_sentence, questions):
+    shortest_distances = [] # (index, distance, question) 튜플 형식으로 저장
+    distances = []
+    for idx, question in enumerate(questions):
+        distance = calc_distance(input_sentence, question)
+
+        if not shortest_distances:                #최초 수행시
+            shortest_distances = [(idx, distance, question)]
+        elif distance < shortest_distances[0][1]:  #거리가 짧은 것을 저장
+            shortest_distances = [(idx, distance, question)]
+        elif distance == shortest_distances[0][1]: #거리가 같을때는 append
+            shortest_distances.append((idx, distance, question))
         
-        print(idx, calc_distance(base, sample), sample)
-        distances.append(calc_distance(base, sample))
+        print(idx, calc_distance(input_sentence, question), question)
+        distances.append(calc_distance(input_sentence, question))
 
     print("@@@")
     for key, value in enumerate(distances):
         print(key, value)
 
     print("@@@")
-    print(shortest_distance)
+    print(shortest_distances)
+    #print(len(shortest_distances))
     print("@@@")
-    return shortest_distance[0]
+
+    random_num_idx = random.randint(0,len(shortest_distances)-1)
+    print(random_num_idx)
+    print(shortest_distances[random_num_idx])
+    print("###")
+
+    return shortest_distances[random_num_idx][0]
 
 
 # "얼마나 분석이 될까요"와 "유사도나 분석 할까요"의 거리 --- (※3)
@@ -72,6 +103,7 @@ for n in r:
     print(calc_distance(base, n), n)
 
 shortest_distance_index = get_shortest_distance_index(base, samples[1:])
+#shortest_distance_index = get_shortest_distance_index_old(base, samples[1:])
 print(shortest_distance_index)
 
 
