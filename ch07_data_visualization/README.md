@@ -64,6 +64,41 @@ Content-Type           application/json
 }
 ```
 
+
+```
+{
+  "startDate": "2024-01-01",
+  "endDate": "2024-06-06",
+  "timeUnit": "date",
+  "keywordGroups": [
+    {
+      "groupName": "고려사이버대",
+      "keywords": [
+        "고려사이버대",
+        "고려사이버대학교",
+        "고려사이버"
+      ]
+    },
+    {
+      "groupName": "한양사이버대",
+      "keywords": [
+        "한양사이버대",
+        "한양사이버대학교",
+        "한양사이버대"
+      ]
+    },
+    {
+      "groupName": "경희사이버대",
+      "keywords": [
+        "경희사이버대",
+        "경희사이버대학교",
+        "경희사이버"
+      ]
+    }
+  ]
+}
+```
+
 ## 시간 경과에 따른 사이버대 검색량 추이 시각화
 
 
